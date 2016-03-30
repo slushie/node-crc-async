@@ -1,1 +1,1 @@
-module.exports = require('bindings')('crcp');
+module.exports = require('bindings')('crc-async');

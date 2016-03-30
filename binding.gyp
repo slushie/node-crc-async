@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "crcp",
+      "target_name": "crc-async",
       "include_dirs": [
         "<!(node -e \"require('nan')\")",
         "include"
