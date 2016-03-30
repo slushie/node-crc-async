@@ -1,2 +1,7 @@
 node_modules/
 build/
+node-crc-async.config
+node-crc-async.creator
+node-crc-async.creator.user
+node-crc-async.files
+node-crc-async.includes

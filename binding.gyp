@@ -10,7 +10,9 @@
         "lib/7zCrc.c",
         "lib/7zCrcOpt.c",
         "lib/CpuArch.c",
-        "src/module.cc"
+        "src/module.cc",
+        "src/crc.cc",
+        "src/async-crc.cc"
       ]
     }
   ]

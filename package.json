@@ -4,7 +4,7 @@
   "description": "Perform CRC operations asynchronously",
   "main": "index.js",
   "keywords": [
-    "crc32",
+    "crc",
     "async"
   ],
   "author": "Josh Leder <slushie@gmail.com>",
