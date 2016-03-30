@@ -8,6 +8,7 @@
     "async"
   ],
   "author": "Josh Leder <slushie@gmail.com>",
+  "repository": "https://github.com/slushie/node-crc-async",
   "license": "MIT",
   "dependencies": {
     "bindings": "^1.2.1",
