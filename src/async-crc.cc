@@ -7,15 +7,15 @@ NAN_METHOD(AsyncCrc) {
     v8::Local <v8::Object> buffer;
     Nan::Callback *callback;
     UInt32 crc = CRC_INIT_VAL;
-    bool post_condition = false;
+    bool post_condition = true;
 
     if (argc < 2) {
         Nan::ThrowTypeError("Missing arguments");
         return;
     }
 
-    if (! info[0]->IsObject()) {
-        Nan::ThrowTypeError("First argument must be a Buffer");
+    if (! node::Buffer::HasInstance(info[0])) {
+        Nan::ThrowTypeError("First argument must be a buffer");
         return;
     }
 
@@ -31,15 +31,7 @@ NAN_METHOD(AsyncCrc) {
         }
 
         crc = info[1]->NumberValue();
-    }
-
-    if (argc > 3) {
-        if (! info[2]->IsBoolean()) {
-            Nan::ThrowTypeError("Third argument must be a boolean, if supplied");
-            return;
-        }
-
-        post_condition = info[2]->BooleanValue();
+        post_condition = false;
     }
 
     buffer = info[0]->ToObject();
@@ -80,7 +72,7 @@ void CrcWorker::HandleOKCallback()
     Nan::HandleScope scope;
     v8::Local <v8::Value> args[] = {
         Nan::Null(),
-        GetFromPersistent("buffer")
+        Nan::New <v8::Number> (_crc)
     };
 
     callback->Call(2, args);

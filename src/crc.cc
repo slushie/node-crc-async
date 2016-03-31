@@ -11,12 +11,17 @@ void InitCrcTable() {
 
 NAN_METHOD(ComputeCrc) {
     if (info.Length() < 1) {
-        Nan::ThrowTypeError("Wrong number of arguments");
+        Nan::ThrowTypeError("Missing arguments");
         return;
     }
 
-    char *data = node::Buffer::Data(info[1]);
-    size_t len = node::Buffer::Length(info[1]);
+    if (! node::Buffer::HasInstance(info[0])) {
+        Nan::ThrowTypeError("First argument must be a buffer");
+        return;
+    }
+
+    char *data = node::Buffer::Data(info[0]);
+    size_t len = node::Buffer::Length(info[0]);
     UInt32 crc = CrcCalc(data, len);
 
     info.GetReturnValue().Set(crc);
@@ -24,18 +29,24 @@ NAN_METHOD(ComputeCrc) {
 
 NAN_METHOD(UpdateCrc) {
     if (info.Length() < 2) {
-        Nan::ThrowTypeError("Wrong number of arguments");
+        Nan::ThrowTypeError("Missing arguments");
         return;
     }
 
-    if (! info[0]->IsNumber()) {
-        Nan::ThrowTypeError("First argument must be a number");
+    if (! node::Buffer::HasInstance(info[0])) {
+        Nan::ThrowTypeError("First argument must be a buffer");
+        return;
     }
 
-    char *data = node::Buffer::Data(info[1]);
-    size_t len = node::Buffer::Length(info[1]);
+    if (! info[1]->IsNumber()) {
+        Nan::ThrowTypeError("Second argument must be a number");
+        return;
+    }
 
-    UInt32 previous = std::floor(info[0]->NumberValue());
+    char *data = node::Buffer::Data(info[0]);
+    size_t len = node::Buffer::Length(info[0]);
+
+    UInt32 previous = std::floor(info[1]->NumberValue());
 
     UInt32 crc = CrcUpdate(previous, data, len);
 
@@ -49,12 +60,13 @@ NAN_METHOD(PreCondition) {
 
 NAN_METHOD(PostCondition) {
     if (info.Length() < 1) {
-        Nan::ThrowTypeError("Wrong number of arguments");
+        Nan::ThrowTypeError("Missing arguments");
         return;
     }
 
     if (! info[0]->IsNumber()) {
         Nan::ThrowTypeError("First argument must be a number");
+        return;
     }
 
     UInt32 value = std::floor(info[0]->NumberValue());

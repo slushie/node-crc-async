@@ -6,7 +6,6 @@ namespace crcAsync {
 
 // function(buffer, cb)
 // function(buffer, crc, cb)
-// function(buffer, crc, postCondtion, cb)
 NAN_METHOD(AsyncCrc);
 
 class CrcWorker : public Nan::AsyncWorker {

@@ -6,7 +6,7 @@ void InitCrcTable();
 
 // function(buffer) -> number
 NAN_METHOD(ComputeCrc);
-// function(crc, buffer) -> number
+// function(buffer, crc) -> number
 NAN_METHOD(UpdateCrc);
 
 // function() -> number

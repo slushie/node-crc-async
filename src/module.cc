@@ -1,6 +1,7 @@
 #include <nan.h>
 #include <node_buffer.h>
 
+#include "async-crc.h"
 #include "crc.h"
 
 namespace crcAsync {
@@ -8,12 +9,14 @@ namespace crcAsync {
 NAN_MODULE_INIT(Init) {
     InitCrcTable();
 
+    Nan::Export(target, "crc", AsyncCrc);
     Nan::Export(target, "computeCrc", ComputeCrc);
     Nan::Export(target, "updateCrc", UpdateCrc);
+
     Nan::Export(target, "preCondition", PreCondition);
     Nan::Export(target, "postCondition", PostCondition);
 }
 
-NODE_MODULE(crcAsync, Init);
+NODE_MODULE(crcAsync, Init)
 
 }
